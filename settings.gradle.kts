@@ -15,4 +15,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "LviLibUvcProject"
 include(":app")
- 
+include(":opencv")
+include(":DependenciesLib")
+include(":LibUvcCamera")
