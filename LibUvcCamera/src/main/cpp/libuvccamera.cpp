@@ -5,19 +5,75 @@
 #include <string>
 #include <jni.h>
 #include "logs.h"
-#include "lvicamera.h"
+#include "UVCCamera/UVCCamera.h"
+#include "libuvccamera.h"
 
-JNIEXPORT jint JNICALL jInit(JNIEnv *env, jobject) {
-    LOGD("Init...");
+JNIEXPORT ID_TYPE JNICALL nativeCreate(JNIEnv *env, jobject) {
+#if LOCAL_DEBUG
+    LOGD("Create...");
+#endif
+    auto *camera = new UVCCamera();
+    return reinterpret_cast<ID_TYPE>(camera);
 }
 
-JNIEXPORT jint JNICALL jRelease(JNIEnv *env, jobject) {
+JNIEXPORT jint JNICALL nativeDestroy(JNIEnv *env, jobject, ID_TYPE idCamera) {
+#if LOCAL_DEBUG
+    LOGD("Destroy...");
+#endif
+    auto *camera = reinterpret_cast<UVCCamera *>(idCamera);
+    delete camera;
+    return JNI_OK;
+}
+
+JNIEXPORT jint JNICALL nativeInit(
+        JNIEnv *env, jobject,
+        ID_TYPE idCamera,
+        jstring usbFsStr
+) {
+#if LOCAL_DEBUG
+    LOGD("Init...");
+#endif
+    int result = JNI_ERR;
+    auto *camera = reinterpret_cast<UVCCamera *>(idCamera);
+    const char *cUsbFs = env->GetStringUTFChars(usbFsStr, JNI_FALSE);
+    if (camera)
+        result = camera->init(cUsbFs);
+    env->ReleaseStringUTFChars(usbFsStr, cUsbFs);
+    return result;
+}
+
+JNIEXPORT jint JNICALL nativeRelease(JNIEnv *env, jobject, ID_TYPE idCamera) {
+#if LOCAL_DEBUG
     LOGD("Release...");
+#endif
+    auto *camera = reinterpret_cast<UVCCamera *>(idCamera);
+    if (camera)
+        camera->release();
+    return JNI_OK;
+}
+
+JNIEXPORT jint JNICALL nativeConnect(
+        JNIEnv *env, jobject,
+        ID_TYPE idCamera,
+        jint vid, jint pid, jint fd,
+        jint busNum, jint devAddress
+) {
+#if LOCAL_DEBUG
+    LOGD("Connect...");
+#endif
+    int result = JNI_ERR;
+    auto *camera = reinterpret_cast<UVCCamera *>(idCamera);
+    if (camera && fd > 0)
+        result = camera->connect(vid, pid, fd, busNum, devAddress);
+    return result;
 }
 
 static JNINativeMethod gMethods[] = {
-        {"nativeInit",        "()I",      (void *) jInit},
-        {"nativeRelease",        "()I",      (void *) jRelease},
+        {"nativeCreate",  "()J", (void *) nativeCreate},
+        {"nativeDestroy", "(J)I", (void *) nativeDestroy},
+        {"nativeInit",    "(JLjava/lang/String;)I", (void *) nativeInit},
+        {"nativeRelease", "(J)I", (void *) nativeRelease},
+        {"nativeConnect", "(JIIIII)I", (void *) nativeConnect},
 };
 
 static const char *const kClassPathName = "com/luxvisions/lvicamera/LviCamera";

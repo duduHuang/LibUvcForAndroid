@@ -682,8 +682,8 @@ uvc_error_t uvc_probe_still_ctrl(
         uvc_device_handle_t *devh,
         uvc_still_ctrl_t *still_ctrl);
 
-/*uvc_error_t uvc_get_frame_desc(uvc_device_handle_t *devh,
-                               uvc_stream_ctrl_t *ctrl, uvc_frame_desc_t **desc);*/
+uvc_error_t uvc_get_frame_desc(uvc_device_handle_t *devh,
+                               uvc_stream_ctrl_t *ctrl, uvc_frame_desc_t **desc);
 
 uvc_error_t uvc_start_streaming(uvc_device_handle_t *devh,
                                 uvc_stream_ctrl_t *ctrl, uvc_frame_callback_t *cb, void *user_ptr,

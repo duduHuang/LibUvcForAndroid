@@ -446,12 +446,12 @@ static uvc_frame_desc_t *_uvc_find_frame_desc_stream_if(
     return NULL;
 }
 
-/*uvc_error_t uvc_get_frame_desc(uvc_device_handle_t *devh,
+uvc_error_t uvc_get_frame_desc(uvc_device_handle_t *devh,
                                uvc_stream_ctrl_t *ctrl, uvc_frame_desc_t **desc) {
 
     *desc = uvc_find_frame_desc(devh, ctrl->bFormatIndex, ctrl->bFrameIndex);
     return *desc ? UVC_SUCCESS : UVC_ERROR_INVALID_PARAM;
-}*/
+}
 
 uvc_frame_desc_t *uvc_find_frame_desc_stream(uvc_stream_handle_t *strmh,
                                              uint16_t format_id, uint16_t frame_id) {

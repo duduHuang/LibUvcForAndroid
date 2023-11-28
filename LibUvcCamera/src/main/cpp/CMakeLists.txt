@@ -6,8 +6,8 @@
 cmake_minimum_required(VERSION 3.22.1)
 
 # configure import libs
+set(LibUvcUsb_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../../../Dependencieslib/src/main)
 set(distribution_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../../../distribution)
-set(OpenCV_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../../Documents/OpenCV-android-sdk/sdk/native/jni)
 
 # ${ANDROID_ABI} is handy for our purpose here. Probably this ${ANDROID_ABI} is
 # the most valuable thing of this sample, the rest are pretty much normal cmake
@@ -44,8 +44,6 @@ set_target_properties(
         IMPORTED_LOCATION
         ${distribution_DIR}/libs/${ANDROID_ABI}/libuvc.so)
 
-find_package(OpenCV REQUIRED)
-
 # Declares the project name. The project name can be accessed via ${ PROJECT_NAME},
 # Since this is the top level CMakeLists.txt, the project name is also accessible
 # with ${CMAKE_PROJECT_NAME} (both CMake variables are in-sync within the top level
@@ -67,17 +65,27 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
 # System.loadLibrary() and pass the name of the library defined here;
 # for GameActivity/NativeActivity derived applications, the same library name must be
 # used in the AndroidManifest.xml file.
-add_library(${CMAKE_PROJECT_NAME}
+add_library(
+        ${CMAKE_PROJECT_NAME}
         SHARED
         # List C/C++ source files with relative paths to this CMakeLists.txt.
+        UVCCamera/UVCCamera.cpp
+        UVCCamera/UVCPreview.cpp
         libuvccamera.cpp)
 
-include_directories(${OpenCV_INCLUDE_DIRS})
+target_include_directories(
+        ${CMAKE_PROJECT_NAME}
+        PRIVATE
+        ${LibUvcUsb_DIR}/jni/libuvc/include
+        ${LibUvcUsb_DIR}/jni/libjpeg-turbo-1.5.0/
+        ${LibUvcUsb_DIR}/jni/libjpeg-turbo-1.5.0/include
+        ${LibUvcUsb_DIR}/jni/libusb)
 
 # Specifies libraries CMake should link to your target library. You
 # can link libraries from various origins, such as libraries defined in this
 # build script, prebuilt third-party libraries, or Android system libraries.
-target_link_libraries(${CMAKE_PROJECT_NAME}
+target_link_libraries(
+        ${CMAKE_PROJECT_NAME}
         lib_jpeg
         lib_usb_10
         lib_uvc
