@@ -2,8 +2,8 @@
 // Created by TedHuang on 2023/10/25.
 //
 
-#ifndef LVICASCADINGVIDEOPROJECT_LVICAMERA_H
-#define LVICASCADINGVIDEOPROJECT_LVICAMERA_H
+#ifndef LVILIBUVCPROJECT_LIBHIDAPI_H
+#define LVILIBUVCPROJECT_LIBHIDAPI_H
 
 typedef enum {
     LVI_HIDC_INVALID,
@@ -63,4 +63,4 @@ typedef struct _xNPUDetResult_ {
     uint16_t usFrameDelay; /* for AI cascade */
 } xNPUDetResult;
 
-#endif //LVICASCADINGVIDEOPROJECT_LVICAMERA_H
+#endif //LVILIBUVCPROJECT_LIBHIDAPI_H

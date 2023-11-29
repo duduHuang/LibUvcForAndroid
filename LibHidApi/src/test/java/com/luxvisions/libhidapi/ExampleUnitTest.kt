@@ -1,4 +1,4 @@
-package com.luxvisions.lvihidapi
+package com.luxvisions.libhidapi
 
 import org.junit.Test
 
