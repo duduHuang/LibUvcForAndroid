@@ -5,11 +5,40 @@
 # Sets the minimum CMake version required for this project.
 cmake_minimum_required(VERSION 3.22.1)
 
+# configure import libs
+set(distribution_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../../../distribution)
+
+# ${ANDROID_ABI} is handy for our purpose here. Probably this ${ANDROID_ABI} is
+# the most valuable thing of this sample, the rest are pretty much normal cmake
+add_library(
+        lib_usb_10
+        SHARED
+        IMPORTED)
+
+set_target_properties(
+        lib_usb_10
+        PROPERTIES
+        IMPORTED_LOCATION
+        ${distribution_DIR}/libs/${ANDROID_ABI}/libusb1.0.so)
+
+add_library(
+        lib_hidapi
+        SHARED
+        IMPORTED)
+
+set_target_properties(
+        lib_hidapi
+        PROPERTIES
+        IMPORTED_LOCATION
+        ${distribution_DIR}/libs/${ANDROID_ABI}/libhidapi.so)
+
 # Declares the project name. The project name can be accessed via ${ PROJECT_NAME},
 # Since this is the top level CMakeLists.txt, the project name is also accessible
 # with ${CMAKE_PROJECT_NAME} (both CMake variables are in-sync within the top level
 # build script scope).
 project("lvihidapi")
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
 
 # Creates and names a library, sets it as either STATIC
 # or SHARED, and provides the relative paths to its source code.
@@ -33,5 +62,7 @@ add_library(${CMAKE_PROJECT_NAME} SHARED
 # build script, prebuilt third-party libraries, or Android system libraries.
 target_link_libraries(${CMAKE_PROJECT_NAME}
         # List libraries link to the target library
+        lib_usb_10
+        lib_hidapi
         android
         log)
