@@ -35,8 +35,11 @@ public:
     );
 
     int setPreviewDisplay(ANativeWindow *previewWindow);
+
     int setFrameCallback(JNIEnv *env, jobject frameCallbackObj, int pixelFormat);
+
     int startPreview();
+
     int stopPreview();
 };
 

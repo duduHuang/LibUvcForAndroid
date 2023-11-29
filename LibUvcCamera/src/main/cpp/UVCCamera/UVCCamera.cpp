@@ -13,7 +13,7 @@
 #include "UVCCamera.h"
 
 UVCCamera::UVCCamera() : mFd(0), mUsbFs(nullptr), mContext(nullptr), mDevice(nullptr),
-                         mDeviceHandle(nullptr) {
+                         mDeviceHandle(nullptr), mPreview(nullptr) {
 
 }
 
@@ -98,7 +98,7 @@ int UVCCamera::setPreviewSize(
                 width, height,
                 minFps, maxFps,
                 mode, bandwidth
-                );
+        );
     return result;
 }
 
