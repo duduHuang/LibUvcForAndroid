@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.luxvisions.lvihidapi"
+    namespace = "com.luxvisions.libhidapi"
     compileSdk = 33
 
     defaultConfig {

@@ -1,11 +1,11 @@
-package com.luxvisions.lvihidapi
+package com.luxvisions.libhidapi
 
 import android.graphics.Bitmap
 import android.util.Log
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
 
-class LviHidApi {
+class LibHidApi {
     private var priFd = 0
     private var secFd = 0
     fun initHidApi(): Int {
@@ -105,10 +105,10 @@ class LviHidApi {
     ) : ByteArray
 
     companion object {
-        private val sTAG = LviHidApi::class.java.name
-        // Used to load the 'lvihidapi' library on application startup.
+        private val sTAG = LibHidApi::class.java.name
+        // Used to load the 'libhidapi' library on application startup.
         init {
-            System.loadLibrary("lvihidapi")
+            System.loadLibrary("libhidapi")
         }
     }
 }

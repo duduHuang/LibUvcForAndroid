@@ -6,7 +6,7 @@
 #include <string>
 #include "hidapi_libusb.h"
 #include "logs.h"
-#include "lvicamera.h"
+#include "libHidapi.h"
 
 #define ID_CASCADE_DONT_CARE 0
 #define ID_CASCADE_IN       1
@@ -388,7 +388,7 @@ static JNINativeMethod gMethods[] = {
         {"nativeHidApiAutoFraming", "([BI)[B",  (void *) jHidApiAutoFraming},
 };
 
-static const char *const kClassPathName = "com/luxvisions/lvicamera/LviCamera";
+static const char *const kClassPathName = "com/luxvisions/libhidapi/LibHidApi";
 
 static int registerNativeMethods(
         JNIEnv *env,
