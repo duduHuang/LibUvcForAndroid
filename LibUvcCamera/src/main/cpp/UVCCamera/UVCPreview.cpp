@@ -11,7 +11,6 @@
 
 #include "libuvc/libuvc.h"
 #include "libuvc/libuvc_internal.h"
-#include "objectarray.h"
 #include "UVCPreview.h"
 
 #define MAX_FRAME 4
@@ -33,7 +32,9 @@ UVCPreview::UVCPreview(uvc_device_handle_t *deviceHandle)
           frameMode(0),
           previewBytes(DEFAULT_PREVIEW_WIDTH * DEFAULT_PREVIEW_HEIGHT * PREVIEW_PIXEL_BYTES),
           previewFormat(WINDOW_FORMAT_RGBA_8888),
-          bIsRunning(false) {
+          bIsRunning(false),
+          mFrameCallbackFunc(nullptr),
+          callbackPixelBytes(2) {
     pthread_cond_init(&previewSync, nullptr);
     pthread_mutex_init(&previewMutex, nullptr);
     pthread_mutex_init(&poolMutex, nullptr);
@@ -142,6 +143,10 @@ int UVCPreview::setPreviewDisplay(ANativeWindow *previewWindow) {
 
 int UVCPreview::setFrameCallback(JNIEnv *env, jobject frameCallbackObj, int pixelFormat) {
     // Capture used...
+    if (frameCallbackObj) {
+        mPixelFormat = pixelFormat;
+//        callbackPixelFormatChanged();
+    }
 }
 
 int UVCPreview::startPreview() {
@@ -304,6 +309,41 @@ uvc_frame_t *UVCPreview::drawPreviewOne(
         }
     }
     return frame;
+}
+
+void UVCPreview::callbackPixelFormatChanged() {
+//    mFrameCallbackFunc = nullptr;
+//    const size_t sz = requestWidth * requestHeight;
+//    switch (mPixelFormat) {
+//        case PIXEL_FORMAT_RAW:
+//            LOGI("PIXEL_FORMAT_RAW:");
+//            callbackPixelBytes = sz * 2;
+//            break;
+//        case PIXEL_FORMAT_YUV:
+//            LOGI("PIXEL_FORMAT_YUV:");
+//            callbackPixelBytes = sz * 2;
+//            break;
+//        case PIXEL_FORMAT_RGB565:
+//            LOGI("PIXEL_FORMAT_RGB565:");
+//            mFrameCallbackFunc = uvc_any2rgb565;
+//            callbackPixelBytes = sz * 2;
+//            break;
+//        case PIXEL_FORMAT_RGBX:
+//            LOGI("PIXEL_FORMAT_RGBX:");
+//            mFrameCallbackFunc = uvc_any2rgbx;
+//            callbackPixelBytes = sz * 4;
+//            break;
+//        case PIXEL_FORMAT_YUV20SP:
+//            LOGI("PIXEL_FORMAT_YUV20SP:");
+//            mFrameCallbackFunc = uvc_yuyv2iyuv420SP;
+//            callbackPixelBytes = (sz * 3) / 2;
+//            break;
+//        case PIXEL_FORMAT_NV21:
+//            LOGI("PIXEL_FORMAT_NV21:");
+//            mFrameCallbackFunc = uvc_yuyv2yuv420SP;
+//            callbackPixelBytes = (sz * 3) / 2;
+//            break;
+//    }
 }
 
 void UVCPreview::uvcPreviewFrameCallback(uvc_frame_t *frame, void *vptrArgs) {

@@ -7,6 +7,10 @@
 #ifndef LVILIBUVCPROJECT_UVCPREVIEW_H
 #define LVILIBUVCPROJECT_UVCPREVIEW_H
 
+#include "libuvc/libuvc.h"
+#include "libuvc/libuvc_internal.h"
+#include "objectarray.h"
+
 #define DEFAULT_PREVIEW_WIDTH 240
 #define DEFAULT_PREVIEW_HEIGHT 2320
 #define DEFAULT_PREVIEW_FPS_MIN 1
@@ -47,6 +51,10 @@ private:
     int previewFormat;
     size_t previewBytes;
 
+    int mPixelFormat;
+    size_t callbackPixelBytes;
+    convFunc_t mFrameCallbackFunc;
+
     pthread_mutex_t poolMutex;
     ObjectArray<uvc_frame_t *> mFramePool;
 
@@ -78,6 +86,8 @@ private:
             convFunc_t func,
             int pixelBytes
     );
+
+    void callbackPixelFormatChanged();
 
 public:
     UVCPreview(uvc_device_handle_t *deviceHandle);

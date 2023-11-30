@@ -76,6 +76,7 @@ add_library(
 target_include_directories(
         ${CMAKE_PROJECT_NAME}
         PRIVATE
+        ${LibUvcUsb_DIR}/jni
         ${LibUvcUsb_DIR}/jni/libuvc/include
         ${LibUvcUsb_DIR}/jni/libjpeg-turbo-1.5.0/
         ${LibUvcUsb_DIR}/jni/libjpeg-turbo-1.5.0/include
@@ -86,7 +87,7 @@ target_include_directories(
 # build script, prebuilt third-party libraries, or Android system libraries.
 target_link_libraries(
         ${CMAKE_PROJECT_NAME}
-        lib_jpeg
+        lib_jpeg-turbo
         lib_usb_10
         lib_uvc
         # List libraries link to the target library

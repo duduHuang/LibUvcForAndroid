@@ -7,6 +7,9 @@
 #ifndef LVILIBUVCPROJECT_UVCCAMERA_H
 #define LVILIBUVCPROJECT_UVCCAMERA_H
 
+#include "libuvc/libuvc.h"
+#include "libuvc/libuvc_internal.h"
+
 class UVCCamera {
     char *mUsbFs;
     int mFd;

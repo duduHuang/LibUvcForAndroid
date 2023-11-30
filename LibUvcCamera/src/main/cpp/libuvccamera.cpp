@@ -6,6 +6,7 @@
 #include <android/native_window_jni.h>
 #include <jni.h>
 #include "logs.h"
+#include "UVCCamera/UVCPreview.h"
 #include "UVCCamera/UVCCamera.h"
 #include "libuvccamera.h"
 
