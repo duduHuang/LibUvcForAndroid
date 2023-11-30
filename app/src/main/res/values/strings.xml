@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">LviLibUvcProject</string>
+    <string name="cost_time">FPS: %1$d</string>
+    <string name="usb_test">Camera</string>
+    <string name="pri_image">Pri image</string>
+    <string name="sec_image">Sec image</string>
+    <string name="result_image">Result image</string>
+    <string name="usb_info">USB Info: device:%1$s, fileDescriptor:%2$d, vendor ID:%3$d, product ID:%4$d, serial:%5$s, version:%6$s, bus num:%7$d, dev num:%8$d, protocol:%9$d, interface count:%10$d</string>
+    <string name="usb_interface_info">USB interface: Name:%1$s, ID:%2$d, interface end point count:%3$d, Interface Class:%4$d, Interface alternateSetting:%5$d</string>
+    <string name="usb_endpoint_info">USB end point: address:%1$d, endpointNum: %2$d, attributes:%3$d, endpointType:%4$d, direction:%5$d, maxPacketSize:%6$d</string>
 </resources>
