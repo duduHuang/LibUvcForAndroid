@@ -7,28 +7,14 @@
     tools:context=".ui.MainFragment">
 
     <SurfaceView
-        android:id="@+id/sec_camera_surface_view"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/camera_surface_view" />
-
-    <SurfaceView
         android:id="@+id/camera_surface_view"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/display_image_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/usb_test_button"
+        android:id="@+id/usb_camera_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -37,31 +23,13 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/pri_button"
+        android:id="@+id/usb_hid_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:text="@string/pri_image"
+        android:text="@string/hid_data"
         app:layout_constraintBottom_toTopOf="@id/fps_text_view"
-        app:layout_constraintStart_toEndOf="@id/usb_test_button" />
-
-    <Button
-        android:id="@+id/sec_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:text="@string/sec_image"
-        app:layout_constraintBottom_toTopOf="@id/fps_text_view"
-        app:layout_constraintStart_toEndOf="@id/pri_button" />
-
-    <Button
-        android:id="@+id/result_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:text="@string/result_image"
-        app:layout_constraintBottom_toTopOf="@id/fps_text_view"
-        app:layout_constraintStart_toEndOf="@id/sec_button" />
+        app:layout_constraintStart_toEndOf="@id/usb_camera_button" />
 
     <TextView
         android:id="@+id/fps_text_view"

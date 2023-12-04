@@ -2,12 +2,20 @@ package com.luxvisions.lvilibuvcproject.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.SurfaceHolder
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
+import com.luxvisions.lvilibuvcproject.R
+import com.luxvisions.lvilibuvcproject.data.model.MainContract
 import com.luxvisions.lvilibuvcproject.databinding.FragmentMainBinding
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class MainFragment : Fragment() {
+    private val mMainViewModel: MainViewModel by activityViewModels { MainViewModel.Factory }
     private var _mFragmentMainBinding: FragmentMainBinding? = null
     private val mFragmentMainBinding get() = _mFragmentMainBinding!!
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,26 +26,62 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _mFragmentMainBinding = FragmentMainBinding.inflate(inflater, container, false)
         return mFragmentMainBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-    }
-
-    override fun onStart() {
-        super.onStart()
+        buttonEvent()
+        initObservers()
+        mFragmentMainBinding.cameraSurfaceView.holder.addCallback(mSurfaceHolderCallback)
     }
 
     override fun onStop() {
+        mFragmentMainBinding.cameraSurfaceView.holder.removeCallback(mSurfaceHolderCallback)
         super.onStop()
     }
 
     override fun onDestroyView() {
         _mFragmentMainBinding = null
         super.onDestroyView()
+    }
+
+    private fun buttonEvent() {
+        mFragmentMainBinding.usbCameraButton.setOnClickListener {
+
+        }
+        mFragmentMainBinding.usbHidButton.setOnClickListener {
+
+        }
+    }
+
+    private fun initObservers() {
+        lifecycleScope.launch {
+            mMainViewModel.uiState.collect {
+                when (it.usbState) {
+                    is MainContract.UsbState.Initial -> {
+                        mFragmentMainBinding.fpsTextView.text = getString(R.string.cost_time, 0)
+                    }
+
+                    else -> {}
+                }
+            }
+        }
+    }
+
+    private val mSurfaceHolderCallback = object : SurfaceHolder.Callback {
+        override fun surfaceCreated(holder: SurfaceHolder) = Unit
+
+        override fun surfaceChanged(
+            holder: SurfaceHolder,
+            format: Int,
+            width: Int,
+            height: Int
+        ) = Unit
+
+        override fun surfaceDestroyed(holder: SurfaceHolder) = Unit
     }
 
     companion object {
