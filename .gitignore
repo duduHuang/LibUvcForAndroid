@@ -6,10 +6,6 @@
 /build
 /captures
 /distribution/libs
-/distribution/lvi_calibration/lib
-/distribution/lvi_core/lib
-/distribution/lvi_hal_rgbd/lib
-/distribution/lvi_registration/lib
 /Dependencieslib/src/main/obj
 /Dependencieslib/src/main/libs
 /app/libs
