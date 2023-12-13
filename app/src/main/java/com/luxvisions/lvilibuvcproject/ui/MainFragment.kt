@@ -35,11 +35,11 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         buttonEvent()
         initObservers()
-        mFragmentMainBinding.cameraSurfaceView.holder.addCallback(mSurfaceHolderCallback)
+        mFragmentMainBinding.cameraSurfaceView.holder.addCallback(mMainViewModel.getSurfaceHolderCallback())
     }
 
     override fun onStop() {
-        mFragmentMainBinding.cameraSurfaceView.holder.removeCallback(mSurfaceHolderCallback)
+        mFragmentMainBinding.cameraSurfaceView.holder.removeCallback(mMainViewModel.getSurfaceHolderCallback())
         super.onStop()
     }
 
@@ -50,10 +50,18 @@ class MainFragment : Fragment() {
 
     private fun buttonEvent() {
         mFragmentMainBinding.usbCameraButton.setOnClickListener {
-
+            mMainViewModel.setEvent(MainContract.Event.StartCamera(
+                requireContext(),
+                requireActivity(),
+                mFragmentMainBinding.cameraSurfaceView,
+                0
+            ))
         }
         mFragmentMainBinding.usbHidButton.setOnClickListener {
-
+            mMainViewModel.setEvent(MainContract.Event.HidData(
+                requireContext(),
+                requireActivity()
+            ))
         }
     }
 
@@ -62,6 +70,10 @@ class MainFragment : Fragment() {
             mMainViewModel.uiState.collect {
                 when (it.usbState) {
                     is MainContract.UsbState.Initial -> {
+                        mMainViewModel.setEvent(MainContract.Event.InitUSBData(
+                            requireContext(),
+                            requireActivity()
+                        ))
                         mFragmentMainBinding.fpsTextView.text = getString(R.string.cost_time, 0)
                     }
 
@@ -69,19 +81,6 @@ class MainFragment : Fragment() {
                 }
             }
         }
-    }
-
-    private val mSurfaceHolderCallback = object : SurfaceHolder.Callback {
-        override fun surfaceCreated(holder: SurfaceHolder) = Unit
-
-        override fun surfaceChanged(
-            holder: SurfaceHolder,
-            format: Int,
-            width: Int,
-            height: Int
-        ) = Unit
-
-        override fun surfaceDestroyed(holder: SurfaceHolder) = Unit
     }
 
     companion object {

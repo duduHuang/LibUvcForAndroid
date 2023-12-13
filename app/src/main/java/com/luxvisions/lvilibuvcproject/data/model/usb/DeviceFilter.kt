@@ -253,12 +253,12 @@ class DeviceFilter(
                     }
                     result = Integer.parseInt(str, radix)
                 }
-            } catch (e: NotFoundException) {
-                Log.d(TAG, "NotFoundException", e)
-            } catch (e: NumberFormatException) {
-                Log.d(TAG, "NumberFormatException", e)
-            } catch (e: NullPointerException) {
-                Log.d(TAG, "NullPointerException", e)
+            } catch (_: NotFoundException) {
+                result = defaultValue
+            } catch (_: NumberFormatException) {
+                result = defaultValue
+            } catch (_: NullPointerException) {
+                result = defaultValue
             }
             return result
         }
@@ -283,12 +283,12 @@ class DeviceFilter(
                 } ?: run {
                     result = defaultValue
                 }
-            } catch (e: NotFoundException) {
-                Log.d(TAG, "NotFoundException", e)
-            } catch (e: NumberFormatException) {
-                Log.d(TAG, "NumberFormatException", e)
-            } catch (e: NullPointerException) {
-                Log.d(TAG, "NullPointerException", e)
+            } catch (_: NotFoundException) {
+
+            } catch (_: NumberFormatException) {
+
+            } catch (_: NullPointerException) {
+
             }
             return result
         }
@@ -320,12 +320,12 @@ class DeviceFilter(
                     val value = Integer.parseInt(str, radix)
                     return value != 0
                 }
-            } catch (e: NotFoundException) {
-                Log.d(TAG, "NotFoundException", e)
-            } catch (e: NumberFormatException) {
-                Log.d(TAG, "NumberFormatException", e)
-            } catch (e: NullPointerException) {
-                Log.d(TAG, "NullPointerException", e)
+            } catch (_: NotFoundException) {
+
+            } catch (_: NumberFormatException) {
+
+            } catch (_: NullPointerException) {
+
             }
             return defaultValue
         }

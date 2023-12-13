@@ -131,7 +131,7 @@ class USBDataSource {
         var result = false
         if (isRegistered()) {
             if (mUsbManager.hasPermission(device)) {
-//                processConnect(device)
+                processConnect(device)
                 result = true
             } else {
                 try {
@@ -160,7 +160,7 @@ class USBDataSource {
                     counter++
             }
             if (counter == device.size) {
-//                processConnect(device)
+                processConnect(device)
                 result = true
             } else {
                 try {
@@ -366,7 +366,7 @@ class USBDataSource {
                                     false
                                 )
                             ) {
-//                                processConnect(device)
+                                processConnect(device)
                             } else {
                                 processCancel(device)
                             }

@@ -145,19 +145,19 @@ JNIEXPORT jint JNICALL nativeSetFrameCallback(
 }
 
 static JNINativeMethod gMethods[] = {
-        {"nativeCreate",            "()J",                                       (void *) nativeCreate},
-        {"nativeDestroy",           "(J)I",                                      (void *) nativeDestroy},
-        {"nativeInit",              "(JLjava/lang/String;)I",                    (void *) nativeInit},
-        {"nativeRelease",           "(J)I",                                      (void *) nativeRelease},
-        {"nativeConnect",           "(JIIIII)I",                                 (void *) nativeConnect},
-        {"nativeSetPreviewSize",    "(JIIIIIF)I",                                (void *) nativeSetPreviewSize},
-        {"nativeSetPreviewDisplay", "(JLandroid/view/Surface;)I",                (void *) nativeSetPreviewDisplay},
-        {"nativeStartPreview",      "(J)I",                                      (void *) nativeStartPreview},
-        {"nativeStopPreview",       "(J)I",                                      (void *) nativeStopPreview},
-        {"nativeSetFrameCallback",  "(JLcom/serenegiant/usb/IFrameCallback;I)I", (void *) nativeSetFrameCallback},
+        {"nativeCreate",            "()J",                                               (void *) nativeCreate},
+        {"nativeDestroy",           "(J)I",                                              (void *) nativeDestroy},
+        {"nativeInit",              "(JLjava/lang/String;)I",                            (void *) nativeInit},
+        {"nativeRelease",           "(J)I",                                              (void *) nativeRelease},
+        {"nativeConnect",           "(JIIIII)I",                                         (void *) nativeConnect},
+        {"nativeSetPreviewSize",    "(JIIIIIF)I",                                        (void *) nativeSetPreviewSize},
+        {"nativeSetPreviewDisplay", "(JLandroid/view/Surface;)I",                        (void *) nativeSetPreviewDisplay},
+        {"nativeStartPreview",      "(J)I",                                              (void *) nativeStartPreview},
+        {"nativeStopPreview",       "(J)I",                                              (void *) nativeStopPreview},
+        {"nativeSetFrameCallback",  "(JLcom/luxvisions/libuvccamera/IFrameCallback;I)I", (void *) nativeSetFrameCallback},
 };
 
-static const char *const kClassPathName = "com/luxvisions/lvicamera/LviCamera";
+static const char *const kClassPathName = "com/luxvisions/libuvccamera/LibUvcCamera";
 
 static int registerNativeMethods(
         JNIEnv *env,

@@ -2,6 +2,7 @@ package com.luxvisions.lvilibuvcproject.data.model
 
 import android.content.Context
 import android.hardware.usb.UsbDevice
+import android.text.TextUtils
 import android.view.Surface
 import com.luxvisions.libuvccamera.IFrameCallback
 import com.luxvisions.lvilibuvcproject.data.model.usb.DeviceFilter
@@ -15,7 +16,6 @@ class USBRepository(
 ) {
     fun init(context: Context, onDeviceConnectListener: OnDeviceConnectListener) {
         usbDataSource.init(context, onDeviceConnectListener)
-        usbCameraDataSource.init("USBCamera")
     }
 
     fun destroy() {
@@ -53,6 +53,8 @@ class USBRepository(
     }
 
     fun openCamera(ctrlBlock: USBDataSource.UsbControlBlock) {
+        val str = getUSBFSName(ctrlBlock.getDeviceName())
+        usbCameraDataSource.init(str)
         usbCameraDataSource.connect(
             ctrlBlock.getVendorId(),
             ctrlBlock.getProductId(),
@@ -86,5 +88,25 @@ class USBRepository(
 
     fun setFrameCallback(iFrameCallback: IFrameCallback, pixelFormat: Int) {
         usbCameraDataSource.setFrameCallback(iFrameCallback, pixelFormat)
+    }
+
+    private fun getUSBFSName(name: String): String {
+        var result = DEFAULT_USBFS
+        val str = if (!TextUtils.isEmpty(name))
+            name.split("/")
+        else
+            null
+        if (str != null && str.size > 2) {
+            val stringBuilder = StringBuilder(str[0])
+            for (i in 1 until str.size - 2)
+                stringBuilder.append("/").append(str[i])
+            result = str.toString()
+        }
+
+        return result
+    }
+
+    companion object {
+        private val DEFAULT_USBFS = "/dev/bus/usb"
     }
 }

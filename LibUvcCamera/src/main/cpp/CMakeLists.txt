@@ -34,6 +34,17 @@ set_target_properties(
         ${distribution_DIR}/libs/${ANDROID_ABI}/libusb1.0.so)
 
 add_library(
+        lib_usb_100
+        SHARED
+        IMPORTED)
+
+set_target_properties(
+        lib_usb_100
+        PROPERTIES
+        IMPORTED_LOCATION
+        ${distribution_DIR}/libs/${ANDROID_ABI}/libusb100.so)
+
+add_library(
         lib_uvc
         SHARED
         IMPORTED)
@@ -89,6 +100,7 @@ target_link_libraries(
         ${CMAKE_PROJECT_NAME}
         lib_jpeg-turbo
         lib_usb_10
+        lib_usb_100
         lib_uvc
         # List libraries link to the target library
         android

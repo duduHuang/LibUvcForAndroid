@@ -1,5 +1,6 @@
 package com.luxvisions.libuvccamera
 
+import android.util.Log
 import android.view.Surface
 
 class LibUvcCamera {
@@ -37,12 +38,14 @@ class LibUvcCamera {
         minFps: Int, maxFps: Int,
         mode: Int, bandwidth: Float
     ) {
-        nativeSetPreviewSize(
+        val result = nativeSetPreviewSize(
             mNativePtr,
             width, height,
             minFps, maxFps,
             mode, bandwidth
         )
+        if (result != 0)
+            Log.e(sTAG, "Failed to set preview size: result: $result")
     }
 
     fun setPreviewDisplay(surface: Surface) {
@@ -90,6 +93,7 @@ class LibUvcCamera {
     ): Int
 
     companion object {
+        private val sTAG = LibUvcCamera::class.java.name
         // Used to load the 'libuvccamera' library on application startup.
         init {
             System.loadLibrary("libuvccamera")

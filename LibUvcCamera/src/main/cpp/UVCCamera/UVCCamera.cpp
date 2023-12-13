@@ -30,8 +30,10 @@ int UVCCamera::init(const char *usbFs) {
     mUsbFs = strdup(usbFs);
     if (nullptr == mContext) {
         uvc_error_t result = uvc_init(&mContext, nullptr);
-        if (result)
+        if (result < 0) {
+            LOGD("failed to init libuvc");
             return -1;
+        }
     }
     return EXIT_SUCCESS;
 }
@@ -53,17 +55,16 @@ int UVCCamera::connect(
         fd = dup(fd);
         result = uvc_wrap(fd, mContext, &mDeviceHandle);
         if (!result) {
-            mDevice = mDeviceHandle->dev;
+            mDevice = uvc_get_device(mDeviceHandle);
             mFd = fd;
             mPreview = new UVCPreview(mDeviceHandle);
         } else {
-            uvc_unref_device(mDevice);
-            mDevice = nullptr;
+            LOGE("could not find camera:err=%d", result);
             mDeviceHandle = nullptr;
             close(fd);
         }
     } else {
-
+        LOGW("camera is already opened. you should release first");
     }
     return result;
 }

@@ -51,10 +51,19 @@ private:
     int previewFormat;
     size_t previewBytes;
 
+    volatile bool bIsCapturing;
+    ANativeWindow *mCaptureWindow;
+    pthread_t captureThread;
+    pthread_mutex_t captureMutex;
+    pthread_cond_t captureSync;
+    uvc_frame_t *captureQueue;			// keep latest frame
     int mPixelFormat;
     size_t callbackPixelBytes;
+    jobject mFrameCallbackObj;
     convFunc_t mFrameCallbackFunc;
+    FieldsIFrameCallback iFrameCallbackFields;
 
+    // improve performance by reducing memory allocation
     pthread_mutex_t poolMutex;
     ObjectArray<uvc_frame_t *> mFramePool;
 
@@ -87,6 +96,14 @@ private:
             int pixelBytes
     );
 
+    void addCaptureFrame(uvc_frame_t *frame);
+    uvc_frame_t *waitCaptureFrame();
+    void clearCaptureFrame();
+    static void *captureThreadFunc(void *vptr_args);
+    void doCapture(JNIEnv *env);
+    void doCaptureSurface(JNIEnv *env);
+    void doCaptureIdleLoop(JNIEnv *env);
+    void doCaptureCallback(JNIEnv *env, uvc_frame_t *frame);
     void callbackPixelFormatChanged();
 
 public:
@@ -109,6 +126,9 @@ public:
     int startPreview();
 
     int stopPreview();
+
+    inline bool isCapturing() const;
+    int setCaptureDisplay(ANativeWindow *capture_window);
 
 };
 

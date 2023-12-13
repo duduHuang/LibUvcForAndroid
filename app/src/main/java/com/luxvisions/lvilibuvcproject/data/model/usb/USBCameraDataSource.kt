@@ -61,7 +61,7 @@ class USBCameraDataSource {
         private val sTAG = USBCameraDataSource::class.java.name
         private const val DEFAULT_PREVIEW_WIDTH = 1280
         private const val DEFAULT_PREVIEW_HEIGHT = 720
-        private const val DEFAULT_PREVIEW_MODE = 0
+        private const val DEFAULT_PREVIEW_MODE = 1
         private const val DEFAULT_PREVIEW_MIN_FPS = 1
         private const val DEFAULT_PREVIEW_MAX_FPS = 30
         private const val DEFAULT_BANDWIDTH = 1.0f
