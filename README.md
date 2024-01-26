@@ -19,3 +19,11 @@ Use libuvc in android platform.
 * OpenCV version is 4.8.0-dev
 
 #### LibHidApi
+
+#### Libusb
+
+#### Libuvc
+
+#### Libusb1.0
+
+#### Libjpeg-turbo

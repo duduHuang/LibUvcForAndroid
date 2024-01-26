@@ -130,3 +130,10 @@ int UVCCamera::stopPreview() {
         result = mPreview->stopPreview();
     return result;
 }
+
+int UVCCamera::setCaptureDisplay(ANativeWindow *captureWindow) {
+    int result = EXIT_FAILURE;
+    if (mPreview)
+        result = mPreview->setCaptureDisplay(captureWindow);
+    return result;
+}

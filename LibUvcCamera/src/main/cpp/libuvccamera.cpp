@@ -6,6 +6,7 @@
 #include <android/native_window_jni.h>
 #include <jni.h>
 #include "logs.h"
+#include "UVCCamera/utilVm.h"
 #include "UVCCamera/UVCPreview.h"
 #include "UVCCamera/UVCCamera.h"
 #include "libuvccamera.h"
@@ -200,6 +201,7 @@ jint JNI_OnLoad(JavaVM *vm, void *reserved) {
     }
     LOGD("onLoader register ok ! [%s]%d", __FUNCTION__, __LINE__);
     result = JNI_VERSION_1_4;
+    setVM(vm);
 
     bail:
     return result;

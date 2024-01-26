@@ -44,6 +44,8 @@ public:
     int startPreview();
 
     int stopPreview();
+
+    int setCaptureDisplay(ANativeWindow *captureWindow);
 };
 
 #endif //LVILIBUVCPROJECT_UVCCAMERA_H
